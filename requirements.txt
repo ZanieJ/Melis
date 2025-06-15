@@ -1,21 +1,3 @@
-pip>=23.0.1
-
-# OCR stack
---find-links https://www.paddlepaddle.org.cn/whl/cpu/stable.html
-paddlepaddle==3.0.0
 paddleocr==2.6.1.3
-
-# Web server
-fastapi
-uvicorn
-python-multipart  # Required for form/file uploads
-
-# File parsing
-PyMuPDF
-python-dotenv
-
-# Supabase client
-supabase
-
-# Ensure compatibility
-numpy==1.24.4
+fastapi==0.110.0
+uvicorn==0.29.0
