@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Env files
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PDF temp data
+*.pdf
+*.png
+
+# VSCode or IDE
+.vscode/
+.idea/
+
+# Node (if you use React frontend)
+node_modules/
+dist/
+build/
