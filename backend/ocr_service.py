@@ -26,7 +26,7 @@ async def process_pdf(filename: str, content: bytes):
         for pallet_id in pallet_ids:
             record = {
                 "pallet_id": pallet_id,
-                "document_name": filename,,
+                "document_name": filename,
                 "page_number": page_number,
             }
             await insert_pallet_record(record)
