@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pallet OCR Upload</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2rem; background-color: #f4f4f4; }
+        h1 { text-align: center; }
+        #drop-zone {
+            border: 2px dashed #aaa;
+            padding: 2rem;
+            text-align: center;
+            color: #555;
+            background-color: white;
+            margin-bottom: 1rem;
+        }
+        #drop-zone.hover { background-color: #e9e9e9; }
+        #file-list { margin-top: 1rem; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Upload PDFs for OCR</h1>
+    <div id="drop-zone">Drag & drop PDF files here or click to select</div>
+    <input type="file" id="file-input" multiple accept="application/pdf" style="display:none"/>
+    <div id="file-list"></div>
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('hover');
+        });
+
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('hover'));
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('hover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+        async function handleFiles(files) {
+            fileList.innerHTML = "";
+            for (const file of files) {
+                const listItem = document.createElement('div');
+                listItem.textContent = `Uploading ${file.name}...`;
+                fileList.appendChild(listItem);
+
+                const formData = new FormData();
+                formData.append('files', file);
+
+                try {
+                    const res = await fetch('https://melissa-backend-gtqj.onrender.com/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await res.json();
+                    if (res.ok) {
+                        listItem.innerHTML = `<strong>${file.name}</strong>: <span class="success">Uploaded and processed successfully</span>`;
+                    } else {
+                        listItem.innerHTML = `<strong>${file.name}</strong>: <span class="error">Error: ${result.detail || 'Unknown error'}</span>`;
+                    }
+                } catch (err) {
+                    listItem.innerHTML = `<strong>${file.name}</strong>: <span class="error">Failed to upload</span>`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
