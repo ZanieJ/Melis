@@ -4,3 +4,4 @@ httpx
 python-dotenv
 pdf2image
 pypdf
+python-multipart
