@@ -13,10 +13,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/upload")
-async def upload_file(file: UploadFile = File(...)):
+@app.post("/test-upload")
+async def test_upload(file: UploadFile = File(...)):
     content = await file.read()
-    print(f"📄 Received: {file.filename}")
+    print(f"📥 Received test file: {file.filename}")
+    return {"filename": file.filename, "size": len(content)}
     
     # Run your OCR logic
     results = await process_pdf(file.filename, content)
