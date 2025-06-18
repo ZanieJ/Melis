@@ -4,6 +4,7 @@ from ocr_service import process_pdf
 
 app = FastAPI()
 
+# 🔧 Allow all CORS origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -12,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/test-upload")  # 🔥 MUST MATCH your frontend
+@app.post("/test-upload")  # 🔥 Route MUST match frontend
 async def upload_file(file: UploadFile = File(...)):
     print(f"📥 Received test file: {file.filename}")
     content = await file.read()
