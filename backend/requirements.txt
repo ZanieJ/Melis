@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+httpx
+pdf2image
+python-multipart
