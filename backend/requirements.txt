@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-httpx
-python-dotenv
-python-multipart
-pdf2image
-supabase
